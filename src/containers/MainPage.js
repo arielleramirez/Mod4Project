@@ -13,16 +13,16 @@ class MainPage extends Component {
     searchResult: [],
     userRecipes: [],
     userCollections: [],
-    currentUserId:1
+    currentUserId:2
   }
 
   componentDidMount(){
-    fetch(`http://localhost:3002/users/${this.state.currentUserId}/recipes`)
+    fetch(`http://localhost:3001/users/${this.state.currentUserId}/recipes`)
     .then(r=>r.json())
-    .then((json)=console.log(json,'recipes'))
-    fetch(`http://localhost:3002/users/${this.state.currentUserId}/collections`)
+    .then((json)=> console.log(json,'recipes'))
+    fetch(`http://localhost:3001/users/${this.state.currentUserId}/collections`)
     .then(r=>r.json())
-    .then((json)=console.log(json,'collections'))
+    .then((json)=> console.log(json,'collections'))
   }
 
 
@@ -50,14 +50,24 @@ class MainPage extends Component {
   //
   // }
 
-  handleFormSubmit=(e,name,ingredients)=>{
+  handleFormSubmit=(e, recipeInfo)=>{
+    console.log(e);
+    console.log(recipeInfo);
     e.preventDefault()
-     fetch('http://localhost:3002/recipes',{
+     fetch(`http://localhost:3001/users/${this.state.currentUserId}/recipes`, {
        method:"POST",
        headers:{
          "Accept":"Application/json",
          "Content-Type":"Application/json"
-       },body:JSON.stringify({name:name,user_id:1})
+       },
+       body:JSON.stringify({
+         user_id: this.state.currentUserId,
+         name: recipeInfo.name,
+         image: recipeInfo.image,
+         calories: Number(recipeInfo.calories),
+         cooking_time: Number(recipeInfo.cooking_time),
+         ingredients: [recipeInfo.ingredient1, recipeInfo.ingredient2, recipeInfo.ingredient3].filter(ingredient => ingredient !== "")
+       })
      }).then(res=>res.json())
      .then(console.log)
   }
