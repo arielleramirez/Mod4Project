@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import {Button} from 'semantic-ui-react';
+import "../index.css"
+import {Container} from 'semantic-ui-react'
 
 class RecipeList extends Component {
 
@@ -26,16 +29,21 @@ class RecipeList extends Component {
   render(){
     return (
       <React.Fragment>
-        <button onClick={this.handleMyRecipes}>My Recipes</button>
-        <button onClick={this.handleMyCollections}>My Collections</button>
+        <Button className="myRecipeBtn"  onClick={this.handleMyRecipes}>My Recipes</Button>
+        <Button className="myFavBtn" onClick={this.handleMyCollections}>My Favorites</Button>
+        
         {this.state.showMyRecipes?
-          <ul>
+          <ul >
             {this.props.userRecipes.map(recipe => <li key={recipe.id} onClick={ () => this.handleShowDetail(recipe)}>{recipe.name}</li>)}
           </ul>
+
           :
+
           <ul>
             {this.props.userCollections.map(recipe => <li key={recipe.id} onClick={ () => this.handleShowDetail(recipe)} >{recipe.name}</li>)}
           </ul>
+
+
         }
       </React.Fragment>
     );

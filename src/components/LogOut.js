@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {createUser} from '../actions/SignUp';
+import {Button} from 'semantic-ui-react'
 
 
 class LogOut extends Component {
@@ -10,7 +11,7 @@ class LogOut extends Component {
   render() {
     console.log(this.props)
     return (
-      <div><button onClick={this.props.handleLogOut}>LogOut</button></div>
+      <div className="logoutBtn"><Button onClick={this.props.handleLogOut}>LogOut</Button></div>
     );
   }
 

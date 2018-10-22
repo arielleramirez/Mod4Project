@@ -3,11 +3,14 @@ import Search from '../components/Search'
 import SearchResult from '../components/SearchResult'
 import RecipeList from '../components/RecipeList'
 import SearchDetail from '../components/SearchDetail'
-import Form from '../components/Form'
+import FormComponent from '../components/FormComponent'
 import RecipeDetail from '../components/RecipeDetail'
 import {connect} from 'react-redux';
 import LogOut from '../components/LogOut'
 import {createUser} from '../actions/SignUp';
+import {Container} from 'semantic-ui-react'
+import {Grid} from 'semantic-ui-react'
+
 
 
 class MainPage extends Component {
@@ -105,16 +108,23 @@ class MainPage extends Component {
     console.log(this.state.searchResult);
     return (
       <React.Fragment>
-        <Search handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
         <LogOut handleLogOut={this.handleLogOut} />
+        <Search handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
         <SearchResult searchResult={this.state.searchResult} handleFavorite={this.handleFavorite}/>
+        <Grid columns={2} padded='horizontally' className="Grid">
+          <Grid.Column>
         <RecipeList handleShowDetail={this.handleShowDetail} userRecipes={this.state.userRecipes} userCollections={this.state.userCollections}/>
-        <Form handleFormSubmit={this.handleFormSubmit} />
+          </Grid.Column>
+          <Grid.Column>
         {this.state.showDetail?
-          <RecipeDetail recipe={this.state.targetRecipe} />
-          :
-          null
-        }
+
+            <RecipeDetail recipe={this.state.targetRecipe} />
+            :
+            null
+          }
+        </Grid.Column>
+        <FormComponent handleFormSubmit={this.handleFormSubmit} />
+        </Grid>
 
       </React.Fragment>
 

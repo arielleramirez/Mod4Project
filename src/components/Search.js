@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Form} from 'semantic-ui-react'
 
 class Search extends Component {
   handleChange=(event) => {
@@ -14,16 +15,13 @@ class Search extends Component {
     // console.log(event)
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <h1 className="banner">Let's Cook</h1>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Group className="search-sides">
           <input onChange={this.handleChange}type="text" placeholder="Search.."></input>
-          <select>
-           <option value="Advance Search">Advance Search</option>
-           <option value="Name">Name</option>
-           <option value="Calories">Calories</option>
-           <option value="Time">Time</option>
-          </select>
-           <input type="submit"value="Submit"/>
-        </form>
+          <Form.Input type="submit"value="Submit"/>
+         </Form.Group>
+        </Form>
       </div>
     );
   }

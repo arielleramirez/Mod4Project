@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import {Form} from 'semantic-ui-react'
 
-class Form extends Component {
+class FormComponent extends Component {
     state={
       name: '',
       image: '',
@@ -22,9 +23,11 @@ class Form extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit}>
+          <Form.Field>
           <label> Recipe Name </label>
           <input onChange={this.handleChange} type="text" name="name"/>
+          </Form.Field>
           <br />
           <label> Image </label>
           <input onChange={this.handleChange} type="text" name="image"/>
@@ -45,7 +48,7 @@ class Form extends Component {
           <input onChange={this.handleChange} type="text" name="ingredient3"/>
           <br />
           <input type="submit" name="submit"/>
-        </form>
+        </Form>
       </div>
     );
   }
@@ -53,4 +56,4 @@ class Form extends Component {
 }
 
 
-export default Form;
+export default FormComponent;
