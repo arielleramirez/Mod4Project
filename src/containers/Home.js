@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import Background from '../img/1.jpg'
+import Background from '../img/2.jpg'
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
+import { Button } from 'semantic-ui-react'
+import "../index.css"
 
 const sectionStyle = {
  width: "100%",
  height: "100vh",
  position: "absolute",
- backgroundPosition: "bottom",
+ backgroundPosition: "center",
  backgroundSize: "cover",
  backgroundImage: `url(${Background})`
 };
@@ -18,9 +20,9 @@ class Home extends Component {
     return (
       <React.Fragment>
         <div style={sectionStyle}>
-          <h1>Let's Cook</h1>
-          <button> <NavLink to="/login">Log In </NavLink> </button>
-          <button> <NavLink to="/signup">Sign Up </NavLink></button>
+          <h1 className="title" >Let's Cook</h1>
+          <Button className="logInButton" color='orange' > <NavLink to="/login" style={{color: "white", textDecoration: "none"}}>Log In </NavLink> </Button>
+          <Button className="signUpButton" color='orange' > <NavLink to="/signup" style={{color: "white", textDecoration: "none"}}>Sign Up </NavLink></Button>
         </div>
       </React.Fragment>
 

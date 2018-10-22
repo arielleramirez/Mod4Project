@@ -12,6 +12,9 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import {connect} from 'react-redux';
+import {createUser} from '../actions/SignUp';
+
 
 const styles = theme => ({
   layout: {
@@ -45,8 +48,40 @@ const styles = theme => ({
   },
 });
 
-function SignUp(props) {
-  const { classes } = props;
+class SignUp extends React.Component {
+  state={
+    username: '',
+    password: '',
+    email: '',
+  }
+
+  handleOnChange =(event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit =(event) => {
+   event.preventDefault()
+
+   fetch('http://localhost:3001/users',{
+     method: 'POST',
+     headers: {
+       'Accept': 'Application/json',
+       'content-type': 'Application/json'
+     }, body: JSON.stringify({
+       username: this.state.username,
+       password: this.state.password,
+       email: this.state.email
+     })
+   }).then(response=> response.json())
+   .then(newUser => this.props.createUser(newUser.id) )
+   .then(() => this.props.history.push("/mainpage"))
+  }
+
+ render(){
+   console.log(this.props);
+  const {classes} = this.props
 
   return (
     <React.Fragment>
@@ -59,18 +94,18 @@ function SignUp(props) {
           <Typography component="h1" variant="h5">
             Sign Up
           </Typography>
-          <form className={classes.form}>
+          <form onSubmit={this.handleSubmit} className={classes.form}>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="username">User Name</InputLabel>
-              <Input id="username" name="username" autoComplete="username" autoFocus />
+              <Input onChange={this.handleOnChange} id="username" name="username" autoComplete="username" autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
+              <Input onChange={this.handleOnChange} id="email" name="email" autoComplete="email" autoFocus />
             </FormControl>
             <FormControl margin="normal" required fullWidth>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
+              <Input onChange={this.handleOnChange}
                 name="password"
                 type="password"
                 id="password"
@@ -78,6 +113,7 @@ function SignUp(props) {
               />
             </FormControl>
             <Button
+
               type="submit"
               fullWidth
               variant="contained"
@@ -92,9 +128,10 @@ function SignUp(props) {
     </React.Fragment>
   );
 }
+}
 
 SignUp.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignUp);
+export default connect(null, {createUser}) (withStyles(styles)(SignUp));

@@ -8,7 +8,7 @@ class SearchResult extends Component {
     return (
       <div>
         {this.props.searchResult.map((recipe,idx)=>{
-          return <Result key={idx} {...recipe} />
+          return <Result key={idx} {...recipe} handleFavorite={this.props.handleFavorite} />
         })}
       </div>
     );

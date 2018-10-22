@@ -4,25 +4,33 @@ import SearchResult from '../components/SearchResult'
 import RecipeList from '../components/RecipeList'
 import SearchDetail from '../components/SearchDetail'
 import Form from '../components/Form'
+import RecipeDetail from '../components/RecipeDetail'
+import {connect} from 'react-redux';
+import LogOut from '../components/LogOut'
+import {createUser} from '../actions/SignUp';
 
 
 class MainPage extends Component {
 
   state={
+    showDetail: false,
+    targetRecipe: {},
     searchBar:'',
     searchResult: [],
     userRecipes: [],
-    userCollections: [],
-    currentUserId:2
+    userCollections: []
   }
 
+  // ${this.props.currentUserId}
+
   componentDidMount(){
-    fetch(`http://localhost:3001/users/${this.state.currentUserId}/recipes`)
+    fetch(`http://localhost:3001/users/2/recipes`)
     .then(r=>r.json())
-    .then((json)=> console.log(json,'recipes'))
-    fetch(`http://localhost:3001/users/${this.state.currentUserId}/collections`)
+    .then(userRecipes => this.setState({userRecipes}))
+
+    fetch(`http://localhost:3001/users/2/collections`)
     .then(r=>r.json())
-    .then((json)=> console.log(json,'collections'))
+    .then(userCollections => this.setState({userCollections}))
   }
 
 
@@ -54,14 +62,14 @@ class MainPage extends Component {
     console.log(e);
     console.log(recipeInfo);
     e.preventDefault()
-     fetch(`http://localhost:3001/users/${this.state.currentUserId}/recipes`, {
+     fetch(`http://localhost:3001/users/2/recipes`, {
        method:"POST",
        headers:{
          "Accept":"Application/json",
          "Content-Type":"Application/json"
        },
        body:JSON.stringify({
-         user_id: this.state.currentUserId,
+         user_id: 2,
          name: recipeInfo.name,
          image: recipeInfo.image,
          calories: Number(recipeInfo.calories),
@@ -69,18 +77,45 @@ class MainPage extends Component {
          ingredients: [recipeInfo.ingredient1, recipeInfo.ingredient2, recipeInfo.ingredient3].filter(ingredient => ingredient !== "")
        })
      }).then(res=>res.json())
-     .then(console.log)
+     .then(recipe=>this.setState(prev=>({userRecipes:[...prev.userRecipes,recipe]})))
+
+     e.target.reset()
   }
+
+  handleShowDetail = (recipe) => {
+    this.setState({
+      showDetail: true,
+      targetRecipe: recipe
+    })
+  }
+
+  handleLogOut =(event) => {
+    this.props.createUser(null)
+    this.props.history.push("/")
+    console.log(this.props.currentUserId)
+  }
+
+  handleFavorite=(recipe)=>{
+     this.setState(prev=>({userCollections:[...prev.userCollections,recipe]}))
+  }
+
+
 
   render() {
     console.log(this.state.searchResult);
     return (
       <React.Fragment>
         <Search handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
-        <SearchResult searchResult={this.state.searchResult} />
-        <RecipeList userRecipes={this.state.userRecipes} userCollections={this.state.userCollections}/>
-        <SearchDetail handleFavorite={this.handleFavorite}/>
+        <LogOut handleLogOut={this.handleLogOut} />
+        <SearchResult searchResult={this.state.searchResult} handleFavorite={this.handleFavorite}/>
+        <RecipeList handleShowDetail={this.handleShowDetail} userRecipes={this.state.userRecipes} userCollections={this.state.userCollections}/>
         <Form handleFormSubmit={this.handleFormSubmit} />
+        {this.state.showDetail?
+          <RecipeDetail recipe={this.state.targetRecipe} />
+          :
+          null
+        }
+
       </React.Fragment>
 
     );
@@ -88,7 +123,7 @@ class MainPage extends Component {
 
 }
 
-export default MainPage;
+export default connect (state => ({currentUserId: state.currentUserId}),{createUser}) (MainPage);
 
 
 //

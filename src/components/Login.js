@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -13,7 +13,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
-
+import {connect} from 'react-redux';
+import {createUser} from '../actions/SignUp';
 
 const styles = theme => ({
   layout: {
@@ -47,58 +48,85 @@ const styles = theme => ({
   },
 });
 
-function Login(props) {
-  const { classes } = props;
 
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <main className={classes.layout}>
-        <Paper className={classes.paper}>
-          <Avatar className={classes.avatar}>
-            <LockIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Log In
-          </Typography>
-          <form className={classes.form}>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="email">Email Address</InputLabel>
-              <Input id="email" name="email" autoComplete="email" autoFocus />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-              <InputLabel htmlFor="password">Password</InputLabel>
-              <Input
-                name="password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-            </FormControl>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-            <NavLink to="/mainpage">
+class Login extends Component {
+  state = {
+    email: '',
+    password: ''
+  }
+
+  handleOnChange =(event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit =(event) => {
+   event.preventDefault()
+
+   fetch('http://localhost:3001/users')
+   .then(response=> response.json())
+   .then(allUsers => {
+     const user = allUsers.find(user => {return user.email === this.state.email && user.password === this.state.password})
+     this.props.createUser(user.id)
+   })
+   .then(() => this.props.history.push("/mainpage"))
+ }
+
+  render(){
+    const { classes } = this.props;
+
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <main className={classes.layout}>
+          <Paper className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
               Log In
-            </NavLink>
-            </Button>
-          </form>
-        </Paper>
-      </main>
-    </React.Fragment>
-  );
+            </Typography>
+            <form className={classes.form} onSubmit={this.handleSubmit}>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="email">Email Address</InputLabel>
+                <Input onChange={this.handleOnChange} id="email" name="email" autoComplete="email" autoFocus />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <Input
+                  onChange={this.handleOnChange}
+                  name="password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+              </FormControl>
+              <FormControlLabel
+                control={<Checkbox value="remember" color="primary" />}
+                label="Remember me"
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+              <NavLink to="/mainpage">
+                Log In
+              </NavLink>
+              </Button>
+            </form>
+          </Paper>
+        </main>
+      </React.Fragment>
+    );
+  }
 }
 
 Login.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Login);
+export default connect(null, {createUser}) (withStyles(styles)(Login));
