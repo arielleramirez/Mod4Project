@@ -12,6 +12,7 @@ import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 import { createStore } from 'redux'
 import todoApp from './reducers/todoApp'
+import Profile from './components/Profile'
 
 const Root = ({ store }) => (
   <Provider store={store}>
@@ -21,6 +22,7 @@ const Root = ({ store }) => (
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/mainpage" component={MainPage} />
+        <Route exact path="/profile" component={Profile} />
       </React.Fragment>
     </Router>
   </Provider>

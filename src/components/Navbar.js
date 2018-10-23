@@ -10,11 +10,12 @@ class LogOut extends Component {
 
   handleChange=(e)=>{
     if (e.target.innerText==="Profile") {
-      this.props.history.push("/")
-    }else{
-      return this.props.handleLogOut
+      this.props.handleProfile()
+    } else if (e.target.innerText === "Main Page") {
+      this.props.handleMainPage()
+    } else {
+      this.props.handleLogOut()
     }
-
   }
 
 
@@ -26,7 +27,8 @@ class LogOut extends Component {
       </span>
     )
     const options = [
-      { key: 'user', text: 'Profile', icon: 'user',value:'profile' },
+      { key: 'user', text: 'Profile', icon: 'user'},
+      { key: 'mainpage', text: 'Main Page', icon: 'home' },
       { key: 'sign-out', text: 'Sign Out', icon: 'sign out' },
     ]
 

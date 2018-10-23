@@ -11,8 +11,6 @@ class SearchResult extends Component {
         {this.props.searchResult.map((recipe,idx)=>{
           return <Result key={idx} {...recipe} handleFavorite={this.props.handleFavorite} />
         })}
-    
-
 
       </div>
     );

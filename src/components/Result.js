@@ -28,8 +28,7 @@ class Result extends Component {
         ingredients: [this.props.recipe.ingredient1, this.props.recipe.ingredient2, this.props.recipe.ingredient3].filter(ingredient => ingredient !== "")
       })
     }).then(res=>res.json())
-    .then(newRecipe=>{
-      this.props.handleFavorite(newRecipe)
+    .then(newRecipe=> {
       fetch('http://localhost:3001/users/2/collections',{
       method:"POST",
       headers:{
