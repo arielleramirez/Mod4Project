@@ -6,7 +6,7 @@ import SearchDetail from '../components/SearchDetail'
 import FormComponent from '../components/FormComponent'
 import RecipeDetail from '../components/RecipeDetail'
 import {connect} from 'react-redux';
-import LogOut from '../components/LogOut'
+import Navbar from '../components/Navbar'
 import {createUser} from '../actions/SignUp';
 import {Container} from 'semantic-ui-react'
 import {Grid} from 'semantic-ui-react'
@@ -21,7 +21,8 @@ class MainPage extends Component {
     searchBar:'',
     searchResult: [],
     userRecipes: [],
-    userCollections: []
+    userCollections: [],
+    showForm: true
   }
 
   // ${this.props.currentUserId}
@@ -45,7 +46,7 @@ class MainPage extends Component {
 
   handleSubmit=(event) => {
     event.preventDefault()
-    fetch(`https://api.edamam.com/search?q=${this.state.searchBar}&app_id=a4e59699&app_key=24b18ce7a1e475a71220602f373751f4&from=0&to=30`,{
+    fetch(`https://api.edamam.com/search?q=${this.state.searchBar}&app_id=a4e59699&app_key=24b18ce7a1e475a71220602f373751f4&from=0&to=5`,{
       headers:{
        "Access-Control-Allow-Origin":"http://localhost:3001"
      }
@@ -88,7 +89,8 @@ class MainPage extends Component {
   handleShowDetail = (recipe) => {
     this.setState({
       showDetail: true,
-      targetRecipe: recipe
+      targetRecipe: recipe,
+      showForm: false
     })
   }
 
@@ -102,28 +104,71 @@ class MainPage extends Component {
      this.setState(prev=>({userCollections:[...prev.userCollections,recipe]}))
   }
 
+  handleDelete = (recipe) => {
+    console.log(recipe);
+    let position;
+    fetch(`http://localhost:3001/users/2/recipes/${recipe.id}`, {
+      method: "DELETE",
+      headers:{
+       "Access-Control-Allow-Origin": "http://localhost:3002"
+     }
+    })
+    .then(response => response.json())
+    .then(console.log)
 
+    if (recipe.user_id === 2) {
+      position = this.state.userRecipes.indexOf(recipe)
+      this.setState({
+        userRecipes: [...this.state.userRecipes.splice(0, position), ...this.state.userRecipes.splice(position + 1)]
+      })
+    } else {
+      position = this.state.userCollections.indexOf(recipe)
+      this.setState({
+        userCollections: [...this.state.userCollections.splice(0, position), ...this.state.userCollections.splice(position + 1)]
+      })
+    }
+    // .then(collections => collections.find(collection => collection))
+    // console.log(recipe);
+  }
+
+  handleShowForm = (event) => {
+    this.setState({
+      showForm: true,
+      showDetail: false
+    })
+  }
 
   render() {
     console.log(this.state.searchResult);
     return (
       <React.Fragment>
-        <LogOut handleLogOut={this.handleLogOut} />
+        <Navbar handleLogOut={this.handleLogOut} />
         <Search handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
         <SearchResult searchResult={this.state.searchResult} handleFavorite={this.handleFavorite}/>
         <Grid columns={2} padded='horizontally' className="Grid">
           <Grid.Column>
-        <RecipeList handleShowDetail={this.handleShowDetail} userRecipes={this.state.userRecipes} userCollections={this.state.userCollections}/>
+        <RecipeList
+          handleShowDetail={this.handleShowDetail}
+          userRecipes={this.state.userRecipes}
+          userCollections={this.state.userCollections}
+          handleDelete={this.handleDelete}
+          handleShowForm={this.handleShowForm}
+          />
           </Grid.Column>
-          <Grid.Column>
-        {this.state.showDetail?
-
-            <RecipeDetail recipe={this.state.targetRecipe} />
-            :
-            null
-          }
-        </Grid.Column>
-        <FormComponent handleFormSubmit={this.handleFormSubmit} />
+            {this.state.showDetail?
+             <Grid.Column>
+               <RecipeDetail recipe={this.state.targetRecipe} />
+             </Grid.Column>
+               :
+               null
+             }
+             {this.state.showForm?
+               <Grid.Column>
+                 <FormComponent handleFormSubmit={this.handleFormSubmit} />
+               </Grid.Column>
+                 :
+                 null
+               }
         </Grid>
 
       </React.Fragment>

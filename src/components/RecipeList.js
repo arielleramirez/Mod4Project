@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Button} from 'semantic-ui-react';
+import {Button,Image,List} from 'semantic-ui-react';
 import "../index.css"
 import {Container} from 'semantic-ui-react'
+import Recipe from './Recipe'
 
 class RecipeList extends Component {
 
@@ -22,29 +23,34 @@ class RecipeList extends Component {
   }
 
   handleShowDetail = (recipe) => {
+    // console.log(recipe);
     this.props.handleShowDetail(recipe)
-    console.log(recipe);
+  }
+
+  handleDelete = (recipe) => {
+    // console.log(recipe);
+    this.props.handleDelete(recipe)
+  }
+
+  handleShowForm = (event) => {
+    this.props.handleShowForm(event)
   }
 
   render(){
+    const allRecipes=this.state.showMyRecipes ? this.props.userRecipes :this.props.userCollections
     return (
       <React.Fragment>
         <Button className="myRecipeBtn"  onClick={this.handleMyRecipes}>My Recipes</Button>
         <Button className="myFavBtn" onClick={this.handleMyCollections}>My Favorites</Button>
-        
-        {this.state.showMyRecipes?
-          <ul >
-            {this.props.userRecipes.map(recipe => <li key={recipe.id} onClick={ () => this.handleShowDetail(recipe)}>{recipe.name}</li>)}
-          </ul>
-
-          :
-
-          <ul>
-            {this.props.userCollections.map(recipe => <li key={recipe.id} onClick={ () => this.handleShowDetail(recipe)} >{recipe.name}</li>)}
-          </ul>
+        <Button className="myFormBtn" onClick={this.handleShowForm}>Create Recipe</Button>
 
 
-        }
+        <div className="recipeList-container">
+          <List divided verticalAlign='middle'>
+            {allRecipes.map(recipe =><Recipe recipe={recipe} key={recipe.id} handleShowDetail={this.handleShowDetail}  handleDelete={this.handleDelete}/>)}
+
+        </List>
+        </div>
       </React.Fragment>
     );
   }

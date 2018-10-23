@@ -13,14 +13,14 @@ class Result extends Component {
 
   handleFavorite = (event) => {
     console.log(this.props.recipe)
-    fetch(`http://localhost:3001/users/2/recipes`, {
+    fetch(`http://localhost:3001/users/1/recipes`, {
       method:"POST",
       headers:{
         "Accept":"Application/json",
         "Content-Type":"Application/json"
       },
       body:JSON.stringify({
-        user_id: 1,//fix user id to 1,recipes from api 
+        user_id: 1,//fix user id to 1,recipes from api
         name: this.props.recipe.label,
         image: this.props.recipe.image,
         calories: Number(this.props.recipe.calories),

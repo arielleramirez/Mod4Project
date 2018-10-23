@@ -22,7 +22,8 @@ class FormComponent extends Component {
 
   render() {
     return (
-      <div>
+      <div className="recipe-form">
+        <h1> Create New Recipe </h1>
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
           <label> Recipe Name </label>

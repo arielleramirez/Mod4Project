@@ -42,15 +42,21 @@ code {
   position:absolute;
   left: 10%;
   top: 10%;
+  margin-bottom: 10px;
   /* padding: 0 0 0 3000px; */
 }
 
 .myFavBtn{
   position:absolute;
-  left: 30%;
+  left: 32%;
   top: 10%;
-
   /* padding: 0 0 0 3000px; */
+}
+
+.myFormBtn {
+  position:absolute;
+  left: 56%;
+  top: 10%;
 }
 
 .centerContainer{
@@ -70,4 +76,24 @@ h1.title {
 .signUpButton {
   position:absolute;
   left:40%;
+}
+
+.recipeList-container {
+  padding: 100px 0 0 15px;
+}
+
+.recipe-btn {
+  margin: -50px;
+}
+
+
+.recipe-name{
+  font-size: 20px;
+  font-weight: bold;
+  margin: 50px 0 20px 0px;
+}
+
+.recipe-form {
+  position:absolute;
+  top: 10%;
 }
