@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Background from '../img/2.jpg'
+import Background from '../img/3.jpg'
 import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import { Button } from 'semantic-ui-react'
 import "../index.css"

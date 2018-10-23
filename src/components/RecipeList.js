@@ -39,7 +39,7 @@ class RecipeList extends Component {
   render(){
     const allRecipes=this.state.showMyRecipes ? this.props.userRecipes :this.props.userCollections
     return (
-      <React.Fragment>
+      <div className="recipeContainer">
         <Button className="myRecipeBtn"  onClick={this.handleMyRecipes}>My Recipes</Button>
         <Button className="myFavBtn" onClick={this.handleMyCollections}>My Favorites</Button>
         <Button className="myFormBtn" onClick={this.handleShowForm}>Create Recipe</Button>
@@ -51,7 +51,7 @@ class RecipeList extends Component {
 
         </List>
         </div>
-      </React.Fragment>
+      </div>
     );
   }
 }

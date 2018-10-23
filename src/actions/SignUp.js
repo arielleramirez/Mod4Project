@@ -1,6 +1,6 @@
-export const createUser = (currentUserId) => {
+export const createUser = (user) => {
   return {
     type: "CREATE_USER",
-    currentUserId
+    user: user
   }
 }

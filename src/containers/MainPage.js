@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Search from '../components/Search'
 import SearchResult from '../components/SearchResult'
 import RecipeList from '../components/RecipeList'
-import SearchDetail from '../components/SearchDetail'
 import FormComponent from '../components/FormComponent'
 import RecipeDetail from '../components/RecipeDetail'
 import {connect} from 'react-redux';
@@ -25,7 +24,6 @@ class MainPage extends Component {
     showForm: true
   }
 
-  // ${this.props.currentUserId}
 
 
 
@@ -37,7 +35,7 @@ class MainPage extends Component {
 
   handleSubmit=(event) => {
     event.preventDefault()
-    fetch(`https://api.edamam.com/search?q=${this.state.searchBar}&app_id=a4e59699&app_key=24b18ce7a1e475a71220602f373751f4&from=0&to=5`,{
+    fetch(`https://api.edamam.com/search?q=${this.state.searchBar}&app_id=a4e59699&app_key=24b18ce7a1e475a71220602f373751f4&from=0&to=20`,{
       headers:{
        "Access-Control-Allow-Origin":"http://localhost:3001"
      }
@@ -65,20 +63,24 @@ class MainPage extends Component {
 
 
   render() {
+    console.log(this.props.currentUser);
+
     console.log(this.state.searchResult);
     return (
       <React.Fragment>
         <Navbar handleLogOut={this.handleLogOut} handleProfile={this.handleProfile} handleMainPage={this.handleMainPage}/>
+        <div className="main-page-search">
         <Search handleChange={this.handleChange} handleSubmit={this.handleSubmit}/>
         <SearchResult searchResult={this.state.searchResult} handleFavorite={this.handleFavorite}/>
-      </React.Fragment>
+        </div>
+    </React.Fragment>
 
     );
   }
 
 }
 
-export default connect (state => ({currentUserId: state.currentUserId}),{createUser}) (MainPage);
+export default connect (state => ({currentUser: state.currentUser}),{createUser}) (MainPage);
 
 
 //

@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f7f5d9;
 }
 
 code {
@@ -14,11 +15,12 @@ code {
 }
 
 .title {
-  color: black;
+  color: white;
   text-decoration: none;
   font-size: 80px;
   text-align: center;
   margin-top: 100px;
+  font-family: "Courgette", cursive;
 }
 
 
@@ -28,6 +30,7 @@ code {
   font-size: 80px;
   text-align: center;
   margin-top: 70px;
+  font-family: "Courgette", cursive;
 }
 
 .search-sides{
@@ -96,4 +99,20 @@ h1.title {
 .recipe-form {
   position:absolute;
   top: 10%;
+  margin: 0 150px;
+}
+
+.main-page-search {
+  margin-top: 50px;
+}
+
+
+
+#root > div.main-page-search > div.ui.horizontally.padded.three.column.grid.Grid1{
+  padding-left: 30px!important;
+  padding-top: 20px!important;
+}
+
+.RecipeDetailContainer{
+  margin: 0 150px;
 }

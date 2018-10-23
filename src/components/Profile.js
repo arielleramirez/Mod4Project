@@ -4,9 +4,12 @@ import RecipeList from './RecipeList'
 import FormComponent from './FormComponent'
 import RecipeDetail from './RecipeDetail'
 import Navbar from './Navbar'
+import {connect} from 'react-redux';
 
 
 class Profile extends Component {
+
+
 
 
     state={
@@ -21,11 +24,11 @@ class Profile extends Component {
 
 
     componentDidMount(){
-      fetch(`http://localhost:3001/users/2/recipes`)
+      fetch(`http://localhost:3001/users/${this.props.currentUser.id}/recipes`)
       .then(r=>r.json())
       .then(userRecipes => this.setState({userRecipes}))
 
-      fetch(`http://localhost:3001/users/2/collections`)
+      fetch(`http://localhost:3001/users/${this.props.currentUser.id}/collections`)
       .then(r=>r.json())
       .then(userCollections => this.setState({userCollections}))
     }
@@ -37,7 +40,7 @@ class Profile extends Component {
       console.log(e);
       console.log(recipeInfo);
       e.preventDefault()
-       fetch(`http://localhost:3001/users/2/recipes`, {
+       fetch(`http://localhost:3001/users/${this.props.currentUser.id}/recipes`, {
          method:"POST",
          headers:{
            "Accept":"Application/json",
@@ -76,7 +79,7 @@ class Profile extends Component {
     handleDelete = (recipe) => {
       console.log(recipe);
       let position;
-      fetch(`http://localhost:3001/users/2/recipes/${recipe.id}`, {
+      fetch(`http://localhost:3001/users/${this.props.currentUser.id}/recipes/${recipe.id}`, {
         method: "DELETE",
         headers:{
          "Access-Control-Allow-Origin": "http://localhost:3002"
@@ -122,11 +125,12 @@ class Profile extends Component {
 
 
   render() {
-    console.log(this.state.props)
+    console.log(this.props.currentUser)
     return (
       <div>
         <Navbar handleLogOut={this.handleLogOut} handleProfile={this.handleProfile} handleMainPage={this.handleMainPage}/>
-      <Grid columns={2} padded='horizontally' className="Grid">
+<h1 className="banner">Let's Cook</h1>
+    <Grid columns={2} padded='horizontally' className="Grid">
         <Grid.Column>
       <RecipeList
         handleShowDetail={this.handleShowDetail}
@@ -157,4 +161,4 @@ class Profile extends Component {
 
 }
 
-export default Profile;
+export default connect (state => ({currentUser: state.currentUser})) (Profile);

@@ -6,7 +6,7 @@ import faker from 'faker'
 import { Dropdown, Image } from 'semantic-ui-react'
 
 
-class LogOut extends Component {
+class Navbar extends Component {
 
   handleChange=(e)=>{
     if (e.target.innerText==="Profile") {
@@ -23,7 +23,7 @@ class LogOut extends Component {
     console.log(this.props)
     const trigger = (
       <span>
-        <Image avatar src={faker.internet.avatar()} /> {faker.name.findName()}
+        <Image avatar src="https://www.telegraph.co.uk/content/dam/news/2016/08/23/106598324PandawaveNEWS_trans_NvBQzQNjv4Bqeo_i_u9APj8RuoebjoAHt0k9u7HhRJvuo-ZLenGRumA.jpg?imwidth=1400" /> {this.props.currentUser.username}
       </span>
     )
     const options = [
@@ -33,12 +33,12 @@ class LogOut extends Component {
     ]
 
     return (
-      <div >
-    <Dropdown trigger={trigger} options={options} pointing='top left' icon={null} onChange={this.handleChange} />
+      <div style={{top: "20px", right: "100px", position: "absolute"}}>
+    <Dropdown trigger={trigger} floating options={options} pointing='top left' icon={null} onChange={this.handleChange} />
       </div>
     );
   }
 
 }
 
-export default connect(null, {createUser}) (LogOut);
+export default connect (state => ({currentUser: state.currentUser})) (Navbar);

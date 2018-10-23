@@ -68,7 +68,7 @@ class Login extends Component {
    .then(response=> response.json())
    .then(allUsers => {
      const user = allUsers.find(user => {return user.email === this.state.email && user.password === this.state.password})
-     this.props.createUser(user.id)
+     this.props.createUser(user)
    })
    .then(() => this.props.history.push("/mainpage"))
  }
