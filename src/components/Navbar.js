@@ -5,7 +5,6 @@ import {Button} from 'semantic-ui-react'
 import faker from 'faker'
 import { Dropdown, Image } from 'semantic-ui-react'
 
-
 class Navbar extends Component {
 
   handleChange=(e)=>{

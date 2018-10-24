@@ -5,7 +5,7 @@ import FormComponent from './FormComponent'
 import RecipeDetail from './RecipeDetail'
 import Navbar from './Navbar'
 import {connect} from 'react-redux';
-
+import {createUser} from '../actions/SignUp';
 
 class Profile extends Component {
 
@@ -24,13 +24,13 @@ class Profile extends Component {
 
 
     componentDidMount(){
-      fetch(`http://localhost:3001/users/${this.props.currentUser.id}/recipes`)
-      .then(r=>r.json())
-      .then(userRecipes => this.setState({userRecipes}))
+        fetch(`http://localhost:3001/users/${this.props.currentUser.id}/recipes`)
+        .then(r=>r.json())
+        .then(userRecipes => this.setState({userRecipes}))
 
-      fetch(`http://localhost:3001/users/${this.props.currentUser.id}/collections`)
-      .then(r=>r.json())
-      .then(userCollections => this.setState({userCollections}))
+        fetch(`http://localhost:3001/users/${this.props.currentUser.id}/collections`)
+        .then(r=>r.json())
+        .then(userCollections => this.setState({userCollections}))
     }
 
 
@@ -39,7 +39,6 @@ class Profile extends Component {
     handleFormSubmit=(e, recipeInfo)=>{
       console.log(e);
       console.log(recipeInfo);
-      e.preventDefault()
        fetch(`http://localhost:3001/users/${this.props.currentUser.id}/recipes`, {
          method:"POST",
          headers:{
@@ -57,8 +56,6 @@ class Profile extends Component {
        }).then(res=>res.json())
        .then(recipe=>this.setState(prev=>({userRecipes:[...prev.userRecipes,recipe]})))
        .then(console.log)
-
-       e.target.reset()
     }
 
 
@@ -88,7 +85,7 @@ class Profile extends Component {
       .then(response => response.json())
       .then(console.log)
 
-      if (recipe.user_id === 2) {
+      if (recipe.user_id === this.props.currentUser.id) {
         position = this.state.userRecipes.indexOf(recipe)
         this.setState({
           userRecipes: [...this.state.userRecipes.splice(0, position), ...this.state.userRecipes.splice(position + 1)]
@@ -125,40 +122,40 @@ class Profile extends Component {
 
 
   render() {
-    console.log(this.props.currentUser)
-    return (
-      <div>
-        <Navbar handleLogOut={this.handleLogOut} handleProfile={this.handleProfile} handleMainPage={this.handleMainPage}/>
-<h1 className="banner">Let's Cook</h1>
-    <Grid columns={2} padded='horizontally' className="Grid">
-        <Grid.Column>
-      <RecipeList
-        handleShowDetail={this.handleShowDetail}
-        userRecipes={this.state.userRecipes}
-        userCollections={this.state.userCollections}
-        handleDelete={this.handleDelete}
-        handleShowForm={this.handleShowForm}
-        />
-        </Grid.Column>
-          {this.state.showDetail?
-           <Grid.Column>
-             <RecipeDetail recipe={this.state.targetRecipe} />
-           </Grid.Column>
-             :
-             null
-           }
-           {this.state.showForm?
+      console.log(this.props.currentUser)
+      return (
+        <div>
+          <Navbar handleLogOut={this.handleLogOut} handleProfile={this.handleProfile} handleMainPage={this.handleMainPage}/>
+          <h1 className="banner">Let's Cook</h1>
+          <Grid columns={2} padded='horizontally' className="Grid">
+          <Grid.Column>
+            <RecipeList
+              handleShowDetail={this.handleShowDetail}
+              userRecipes={this.state.userRecipes}
+              userCollections={this.state.userCollections}
+              handleDelete={this.handleDelete}
+              handleShowForm={this.handleShowForm}
+            />
+          </Grid.Column>
+            {this.state.showDetail?
              <Grid.Column>
-               <FormComponent handleFormSubmit={this.handleFormSubmit} />
+               <RecipeDetail recipe={this.state.targetRecipe} />
              </Grid.Column>
                :
                null
              }
-      </Grid>
-    </div>
-    );
+             {this.state.showForm?
+               <Grid.Column>
+                 <FormComponent handleFormSubmit={this.handleFormSubmit} />
+               </Grid.Column>
+                 :
+                 null
+               }
+        </Grid>
+      </div>
+      );
   }
 
 }
 
-export default connect (state => ({currentUser: state.currentUser})) (Profile);
+export default connect (state => ({currentUser: state.currentUser}), {createUser}) (Profile);

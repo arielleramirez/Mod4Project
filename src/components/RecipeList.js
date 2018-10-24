@@ -37,7 +37,7 @@ class RecipeList extends Component {
   }
 
   render(){
-    const allRecipes=this.state.showMyRecipes ? this.props.userRecipes :this.props.userCollections
+    const allRecipes=this.state.showMyRecipes ? this.props.userRecipes : this.props.userCollections
     return (
       <div className="recipeContainer">
         <Button className="myRecipeBtn"  onClick={this.handleMyRecipes}>My Recipes</Button>
@@ -48,7 +48,6 @@ class RecipeList extends Component {
         <div className="recipeList-container">
           <List divided verticalAlign='middle'>
             {allRecipes.map(recipe =><Recipe recipe={recipe} key={recipe.id} handleShowDetail={this.handleShowDetail}  handleDelete={this.handleDelete}/>)}
-
         </List>
         </div>
       </div>

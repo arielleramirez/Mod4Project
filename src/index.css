@@ -116,3 +116,21 @@ h1.title {
 .RecipeDetailContainer{
   margin: 0 150px;
 }
+
+.detail-image {
+  height: 200px;
+  width: 250px;
+}
+
+#root > main > div > form > button > span.MuiButton-label-152 > a {
+  color: white;
+}
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}

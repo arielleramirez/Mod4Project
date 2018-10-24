@@ -59,6 +59,7 @@ class Result extends Component {
 
   handleFavorite = (event) => {
     console.log(this.props.recipe)
+    const ingredients = this.props.recipe.ingredients.map(ingredient => ingredient.text)
     fetch(`http://localhost:3001/users/1/recipes`, {
       method:"POST",
       headers:{
@@ -71,7 +72,7 @@ class Result extends Component {
         image: this.props.recipe.image,
         calories: Number(this.props.recipe.calories),
         cooking_time: Number(this.props.recipe.cooking_time),
-        ingredients: [this.props.recipe.ingredient1, this.props.recipe.ingredient2, this.props.recipe.ingredient3].filter(ingredient => ingredient !== "")
+        ingredients: ingredients
       })
     }).then(res=>res.json())
     .then(newRecipe=> {
