@@ -6,7 +6,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f7f5d9;
+  background-color: #1d2c5b;
+  color: white;
 }
 
 code {
@@ -18,14 +19,12 @@ code {
   color: white;
   text-decoration: none;
   font-size: 80px;
-  text-align: center;
-  margin-top: 100px;
+  margin: 0 515px 0 515px;
   font-family: "Courgette", cursive;
 }
 
-
 .banner {
-  color: black;
+  color: white;
   text-decoration: none;
   font-size: 80px;
   text-align: center;
@@ -33,19 +32,19 @@ code {
   font-family: "Courgette", cursive;
 }
 
-.search-sides{
+.search-sides {
   padding: 0 250px 0 250px;
 }
 
-.logoutBtn{
+.logoutBtn {
   padding: 10px 0 0 1110px;
 }
 
-.myRecipeBtn{
+.myRecipeBtn {
   margin-right: 10%;
 }
 
-.myFavBtn{
+.myFavBtn {
   margin-left: 50%;
   margin-right: 10%;
 }
@@ -54,23 +53,22 @@ code {
   margin-left: 10%;
 }
 
-.centerContainer{
+.centerContainer {
   text-align: center;
 }
 
-
 h1.title {
-  margin-top: 100px;
+  margin-top: 300px;
 }
 
 .logInButton {
-  position:absolute;
-  left:51%;
+  position: absolute;
+  left: 51%;
 }
 
 .signUpButton {
-  position:absolute;
-  left:37%;
+  position: absolute;
+  left: 37%;
 }
 
 .recipeList-container {
@@ -86,15 +84,14 @@ h1.title {
   margin: -50px;
 }
 
-
-.recipe-name{
+.recipe-name {
   font-size: 20px;
   font-weight: bold;
   margin: 50px 0 20px 0px;
 }
 
 .recipe-form {
-  position:absolute;
+  position: absolute;
   top: 10%;
   margin: 0 150px;
 }
@@ -103,14 +100,24 @@ h1.title {
   margin-top: 50px;
 }
 
-
-
-#root > div.main-page-search > div.ui.horizontally.padded.three.column.grid.Grid1{
-  padding-left: 30px!important;
-  padding-top: 20px!important;
+#root
+  > div.main-page-search
+  > div.ui.horizontally.padded.three.column.grid.Grid1 {
+  padding-left: 30px !important;
+  padding-top: 24px !important;
+  color: white !important;
+  font-size: 25px;
 }
 
-.RecipeDetailContainer{
+div.MuiCardMedia-root-34 {
+  padding: 120px;
+}
+
+.addPadding {
+  padding: 20px;
+}
+
+.RecipeDetailContainer {
   margin: 0 150px;
 }
 
@@ -118,18 +125,18 @@ h1.title {
   height: 200px;
   width: 250px;
 }
-
+/*
 #root > main > div > form > button > span.MuiButton-label-152 > a {
-  color: white;
-}
+
+} */
 
 .inputfile {
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
-	z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
 .login {
@@ -150,7 +157,7 @@ h1.title {
   color: white;
   font-family: "Niramit", sans-serif;
   font-size: 45px;
-  text-align: center
+  text-align: center;
 }
 .sign {
   margin: 0 135px 20px 135px;
@@ -179,5 +186,4 @@ h1.title {
 
 .new-recipe-form {
   padding: 0 100px;
-
 }
