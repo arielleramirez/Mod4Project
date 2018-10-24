@@ -42,24 +42,16 @@ code {
 }
 
 .myRecipeBtn{
-  position:absolute;
-  left: 10%;
-  top: 10%;
-  margin-bottom: 10px;
-  /* padding: 0 0 0 3000px; */
+  margin-right: 10%;
 }
 
 .myFavBtn{
-  position:absolute;
-  left: 32%;
-  top: 10%;
-  /* padding: 0 0 0 3000px; */
+  margin-left: 50%;
+  margin-right: 10%;
 }
 
 .myFormBtn {
-  position:absolute;
-  left: 56%;
-  top: 10%;
+  margin-left: 10%;
 }
 
 .centerContainer{
@@ -82,7 +74,12 @@ h1.title {
 }
 
 .recipeList-container {
-  padding: 100px 0 0 15px;
+  margin-left: 15%;
+}
+
+.recipe-button-container {
+  margin-left: 15%;
+  margin-bottom: 5%;
 }
 
 .recipe-btn {
@@ -133,4 +130,54 @@ h1.title {
 	overflow: hidden;
 	position: absolute;
 	z-index: -1;
+}
+
+.login {
+  margin: 75px 420px 0 420px;
+  padding: 60px 15px;
+  border: solid #152249 2px;
+  border-radius: 10px;
+  background-color: #1c2c5b;
+  font-family: "Niramit", sans-serif;
+}
+.submit {
+  margin: 200px;
+  color: #080e20;
+  font-family: "Niramit", sans-serif;
+}
+.log {
+  margin: 0 135px 20px 135px;
+  color: white;
+  font-family: "Niramit", sans-serif;
+  font-size: 45px;
+  text-align: center
+}
+.sign {
+  margin: 0 135px 20px 135px;
+  color: white;
+  font-family: "Niramit", sans-serif;
+  font-size: 45px;
+}
+.signup {
+  margin: 150px 500px 0 500px;
+  padding: 60px 15px;
+  border: solid #152249 2px;
+  border-radius: 10px;
+  background-color: #1c2c5b;
+  font-family: "Niramit", sans-serif;
+}
+.Form {
+  color: #080e20;
+}
+.background {
+  background-color: #070d1f;
+  height: 100vh;
+  position: absolute;
+  background-position: center;
+  background-size: cover;
+}
+
+.new-recipe-form {
+  padding: 0 100px; 
+
 }

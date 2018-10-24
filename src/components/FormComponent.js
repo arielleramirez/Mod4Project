@@ -99,7 +99,7 @@ class FormComponent extends Component {
 
   render() {
     return (
-      <div>
+      <div className="new-recipe-form">
         <Form onSubmit={this.handleSubmit}>
           <Form.Field>
           <label> Recipe Name </label>
@@ -107,7 +107,7 @@ class FormComponent extends Component {
             </Form.Field>
 
           <input type="file" onChange={this.handleImageChange} className="inputfile" id="embedpollfileinput" />
-           <label for="embedpollfileinput" className="ui huge green floated button">
+           <label for="embedpollfileinput" className="ui green floated button">
              <i className="ui upload icon"></i>
              Upload image
            </label>
