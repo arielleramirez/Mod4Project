@@ -65,12 +65,12 @@ h1.title {
 
 .logInButton {
   position:absolute;
-  left:50%;
+  left:51%;
 }
 
 .signUpButton {
   position:absolute;
-  left:40%;
+  left:37%;
 }
 
 .recipeList-container {
@@ -178,6 +178,6 @@ h1.title {
 }
 
 .new-recipe-form {
-  padding: 0 100px; 
+  padding: 0 100px;
 
 }

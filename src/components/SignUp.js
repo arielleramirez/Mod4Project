@@ -75,7 +75,7 @@ class SignUp extends React.Component {
        email: this.state.email
      })
    }).then(response=> response.json())
-   .then(newUser => this.props.createUser(newUser.id) )
+   .then(newUser => this.props.createUser(newUser) )
    .then(() => this.props.history.push("/mainpage"))
   }
 

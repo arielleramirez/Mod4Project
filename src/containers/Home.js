@@ -21,8 +21,8 @@ class Home extends Component {
       <React.Fragment>
         <div style={sectionStyle}>
           <h1 className="title" >Let's Cook</h1>
-          <Button className="logInButton" color='orange' > <NavLink to="/login" style={{color: "white", textDecoration: "none"}}>Log In </NavLink> </Button>
-          <Button className="signUpButton" color='orange' > <NavLink to="/signup" style={{color: "white", textDecoration: "none"}}>Sign Up </NavLink></Button>
+          <Button className="logInButton" color='orange' > <NavLink to="/login" style={{color: "white", textDecoration: "none", paddingLeft: 35, paddingRight: 35}}>Log In </NavLink> </Button>
+          <Button className="signUpButton" color='orange' > <NavLink to="/signup" style={{color: "white", textDecoration: "none", paddingLeft: 35, paddingRight: 35}}>Sign Up </NavLink></Button>
         </div>
       </React.Fragment>
 

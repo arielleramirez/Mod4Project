@@ -8,12 +8,14 @@ import { Dropdown, Image } from 'semantic-ui-react'
 class Navbar extends Component {
 
   handleChange=(e)=>{
-    if (e.target.innerText==="Profile") {
-      this.props.handleProfile()
-    } else if (e.target.innerText === "Main Page") {
+    console.log(e.target);
+    if (e.target.innerText == "Sign Out") {
+      this.props.handleLogOut()
+    } else if (e.target.innerText == "Main Page" || e.target.className == "home icon") {
       this.props.handleMainPage()
     } else {
-      this.props.handleLogOut()
+      // debugger
+      this.props.handleProfile()
     }
   }
 
